@@ -18,7 +18,7 @@ def caching_fibonacci() -> Callable[[int], int]:
 
         :return: int
         '''
-        
+
         if number not in cache:
             if number < 1:
                 cache[number] = 0
@@ -26,7 +26,7 @@ def caching_fibonacci() -> Callable[[int], int]:
                 cache[number] = fibonacci(number - 1) + fibonacci(number - 2)
             else:
                 cache[number] = 1
-        
+
         return cache[number]
-    
+
     return fibonacci
