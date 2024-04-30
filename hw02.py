@@ -1,6 +1,6 @@
-from re import findall
+from re import search
 from typing import Callable, Iterable
-from decimal import Decimal, ROUND_HALF_EVEN
+from decimal import Decimal, ROUND_HALF_EVEN as ROUND
 
 
 def generator_numbers(text: str) -> Iterable[Decimal]:
@@ -13,8 +13,10 @@ def generator_numbers(text: str) -> Iterable[Decimal]:
     :return: Iterable[Decimal]
     '''
 
-    for number in findall(r'\s+(\d+(|\.\d+))\s+', text):
-        yield Decimal(number[0]).quantize(Decimal('0.00'), ROUND_HALF_EVEN)
+    while number := search(r'\s+(\d+(|\.\d+))\s+', text):
+        yield Decimal(number.group()).quantize(Decimal('0.00'), ROUND)
+
+        text = text[number.end():]
 
 
 def sum_profit(text: str, func: Callable[[str], Iterable[Decimal]]) -> Decimal:
