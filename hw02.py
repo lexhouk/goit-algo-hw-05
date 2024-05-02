@@ -1,16 +1,16 @@
 from re import search
-from typing import Callable, Iterable
+from typing import Callable, Generator
 from decimal import Decimal, ROUND_HALF_EVEN as ROUND
 
 
-def generator_numbers(text: str) -> Iterable[Decimal]:
+def generator_numbers(text: str) -> Generator[Decimal, None, None]:
     '''
     Extract all floating point numbers from plain text where the first ones are
     separated by spaces.
 
     :param text: str
 
-    :return: Iterable[Decimal]
+    :return: Generator[Decimal, None, None]
     '''
 
     while number := search(r'\s+(\d+(|\.\d+))\s+', text):
@@ -19,12 +19,15 @@ def generator_numbers(text: str) -> Iterable[Decimal]:
         text = text[number.end():]
 
 
-def sum_profit(text: str, func: Callable[[str], Iterable[Decimal]]) -> Decimal:
+def sum_profit(
+    text: str,
+    func: Callable[[str], Generator[Decimal, None, None]]
+) -> Decimal:
     '''
     Add all the numbers obtained from the given function.
 
     :param text: str
-    :param func: Callable[[str], Iterable[Decimal]]
+    :param func: Callable[[str], Generator[Decimal, None, None]]
 
     :return: Decimal
     '''

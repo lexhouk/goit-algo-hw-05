@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Dict
 
 
 def caching_fibonacci() -> Callable[[int], int]:
@@ -8,7 +8,7 @@ def caching_fibonacci() -> Callable[[int], int]:
     :return: Callable[[int], int]
     '''
 
-    cache: dict[int, int] = {}
+    cache: Dict[int, int] = {}
 
     def fibonacci(number: int) -> int:
         '''
